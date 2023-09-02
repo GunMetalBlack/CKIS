@@ -7,7 +7,7 @@ struct player_t
     int y = 5;
     int hp = 100;
     int attack = 1;
-    string message  = "Player";
+    string message = "Player";
 };
 
 // Function prototypes
@@ -80,22 +80,21 @@ void render(char (&map)[20][20], player_t &MyPlayer)
     map[MyPlayer.y][MyPlayer.x] = 'P';
 
     // Render UI
-    string message ="+" + MyPlayer.message;
+    string message = "+" + MyPlayer.message;
     string hp = "+HP:" + to_string(MyPlayer.hp);
     int uiCount = 2;
     for (int i = 0; i < 20; i++)
     {
         for (int j = 0; j < 20; j++)
         {
-            if(i == 11 && j<=hp.size())
+            if (i == 11 && j <= hp.size())
             {
-                map[i][j]= hp[j];
+                map[i][j] = hp[j];
             }
-            else if(i == 13 && j <= message.size())
+            else if (i == 13 && j <= message.size())
             {
-                map[i][j]= message[j];
+                map[i][j] = message[j];
             }
-            
         }
         cout << endl;
     }
@@ -111,26 +110,6 @@ void render(char (&map)[20][20], player_t &MyPlayer)
     }
 }
 
-int playerMovementAmount()
-{
-    int movementAmount = 0;
-
-    while (true)
-    {
-        cout << "Enter a whole number between 1 and 3 movement amount: ";
-        cin >> movementAmount;
-
-        if (movementAmount > 0 && movementAmount <= 3)
-        {
-            return movementAmount; // Return the valid movement amount
-        }
-        else
-        {
-            cout << "Invalid input. Please enter a whole number between 1 and 3." << endl;
-        }
-    }
-}
-
 void engine(char (&map)[20][20], player_t &MyPlayer)
 {
     // stuff
@@ -138,26 +117,40 @@ void engine(char (&map)[20][20], player_t &MyPlayer)
     string input;
     cout << "What do you want to do?";
     cin >> input;
-    if (input == "move_north" && MyPlayer.y > 0)
+    if (input[0] == '/')
     {
-        MyPlayer.message = "moved north";
-        MyPlayer.y = MyPlayer.y - playerMovementAmount();
+        // Other Commands
     }
-    else if (input == "south m" && MyPlayer.y < 9)
+    else
     {
-        MyPlayer.message = "moved south";
-        MyPlayer.y = MyPlayer.y + playerMovementAmount();
+        for (int i = 0; i < input.length(); i++)
+        {
+            if ((input[i] == 'w') && MyPlayer.y > 0)
+            {
+                MyPlayer.message = "moved north";
+                MyPlayer.y = MyPlayer.y - 1;
+            }
+            else if (input[i] == 's' && MyPlayer.y < 9)
+            {
+                MyPlayer.message = "moved south";
+                MyPlayer.y = MyPlayer.y + 1;
+            }
+            else if (input[0] == 'a' && MyPlayer.x > 0)
+            {
+                MyPlayer.message = "moved west";
+                MyPlayer.x = MyPlayer.x - 1;
+            }
+            else if (input[0] == 'd' && MyPlayer.x < 19)
+            {
+                MyPlayer.message = "moved east";
+                MyPlayer.x = MyPlayer.x + 1;
+            }
+            else
+            {
+                MyPlayer.message = "invalid input";
+            }
+        }
     }
-    else if (input == "west m" && MyPlayer.x > 0)
-    {
-        MyPlayer.message = "moved west";
-        MyPlayer.x = MyPlayer.x - playerMovementAmount();
-    }
-    else if (input == "south m" && MyPlayer.x < 19)
-    {
-        MyPlayer.message = "south m";
-        MyPlayer.x = MyPlayer.x + playerMovementAmount();
-    }else{MyPlayer.message = "Not an Input";}
 
     system("clear");
 }
