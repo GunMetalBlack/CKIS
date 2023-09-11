@@ -21,13 +21,14 @@ void playGame()
     engine(map, MyPlayer, window, textureList, textures);
 }
 
-//Load the textures
-void loadTexures(std::vector<std::string>& texturesToLoad, std::vector<sf::Texture>& loadedTextures)
+// Load the textures
+void loadTexures(std::vector<std::string> &texturesToLoad, std::vector<sf::Texture> &loadedTextures)
 {
-    for(auto it = texturesToLoad.begin(); it < texturesToLoad.end(); ++it)
+    for (auto it = texturesToLoad.begin(); it < texturesToLoad.end(); ++it)
     {
         sf::Texture texture;
-        if(!texture.loadFromFile(*it)) std::cout << "FAILED TO LOAD TEXTURE VERY BAD" << std::endl;
+        if (!texture.loadFromFile(*it))
+            std::cout << "FAILED TO LOAD TEXTURE VERY BAD" << std::endl;
         loadedTextures.push_back(texture);
     }
 }
@@ -73,7 +74,7 @@ void render(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window,
     // {
     //     for (int j = 0; j < 360; j++)
     //     {
-    //         if (i == 11 && j <= hp.size())
+    //             if (i == 11 && j <= hp.size())
     //         {
     //             map[i][j] = hp[j];
     //         }
@@ -84,16 +85,9 @@ void render(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window,
     //     }
     //     cout << endl;
     // }
-    // Draw map to screen
-    for (int i = 0; i < 640; i++)
-    {
-        for (int j = 0; j < 360; j++)
-        {
-            cout << " ";
-            cout << map[i][j];
-        }
-        cout << endl;
-    }
+    // Draw Debug Info to the Screen
+    cout << "Player X:" << MyPlayer.x << endl;
+    cout << "Player Y:" << MyPlayer.y << endl;
 }
 
 void engine(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window, std::vector<std::string> textureList, std::vector<sf::Texture> textures)
@@ -115,28 +109,40 @@ void engine(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window,
                 case sf::Keyboard::Escape:
                     window.close();
                     break;
-                    case sf::Keyboard::Up:
+                case sf::Keyboard::Up:
+                    if (MyPlayer.y >= 1)
+                    {
                         MyPlayer.y -= 1;
-                        break;
-                    case sf::Keyboard::Down:
+                    }
+                    break;
+                case sf::Keyboard::Down:
+                    if (MyPlayer.y < 360)
+                    {
                         MyPlayer.y += 1;
-                        break;
-                    case sf::Keyboard::Left:
+                    }
+                    break;
+                case sf::Keyboard::Left:
+                    if (MyPlayer.x > 0)
+                    {
                         MyPlayer.x -= 1;
-                        break;
-                    case sf::Keyboard::Right:
+                    }
+                    break;
+                case sf::Keyboard::Right:
+                    if (MyPlayer.x >= 0)
+                    {
                         MyPlayer.x += 1;
-                        break;
+                    }
+                    break;
                     // case sf::Keyboard::Space:
                     //     MyPlayer.attack();
                     //     break;
                 }
             }
         }
-        
+
         window.clear(backgroundColor);
         std::cout << "\033[2J\033[H";
-        
+
         // draw everything here...
         // window.draw(...);
         render(map, MyPlayer, window, textureList, textures);
