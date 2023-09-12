@@ -9,6 +9,9 @@ void playGame()
     initFillMap(map);
     player_t MyPlayer;
 
+    //TODO: For the love of god I hate to do this to yah jim but here we go
+    //Im going to preload the textures and store them in a vector of strings which i will use in the SpriteManager class as an easy lookup using the string
+    //Unfortunately i dont know of a better way of doing this in c++ well and Im lazy so i will just do this for now
     textureList.push_back("player.png");
 
     loadTexures(textureList, textures);
@@ -52,7 +55,7 @@ void initFillMap(char (&map)[640][360])
 void render(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window, std::vector<std::string> &textureList, std::vector<sf::Texture> &textures)
 {
     const int cellSize = 8;
-    const int RenderDistanceX = 20;
+    const int RenderDistanceX = 50;
     const int RenderDistanceY = 20;
     // Calculate the pixel coordinates for the sprite based on the player's position in the map
 
@@ -70,7 +73,7 @@ void render(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window,
             int world_space_x = i + MyPlayer.x;
             int world_space_y = j + MyPlayer.y;
             int screen_space_offset;
-            screen_space_offset = (80 - RenderDistanceX) / 2;
+            screen_space_offset = (100 - RenderDistanceX) / 2;
 
             // Lookup Char from World
             char char_from_map = map[world_space_x][world_space_y];
@@ -87,8 +90,8 @@ void render(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window,
     // Draw Debug Info to the Console
     cout << "Player X:" << MyPlayer.x << endl;
     cout << "Player Y:" << MyPlayer.y << endl;
-    Entity_t fuck('3');
-    fuck.debug();
+    //Entity_t fuck('3');
+    //fuck.debug();
 }
 
 void engine(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window, std::vector<std::string> &textureList, std::vector<sf::Texture> &textures)
