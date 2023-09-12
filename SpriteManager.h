@@ -7,7 +7,7 @@ class SpriteManager
 {
 public:
     // Constructor to load the texture and initialize the sprite
-    SpriteManager(std::string &filename);
+    SpriteManager(const std::string &filename);
 
     // Getter for the sprite
     sf::Sprite &getSprite();

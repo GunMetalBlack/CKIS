@@ -13,6 +13,7 @@ void playGame()
     //Im going to preload the textures and store them in a vector of strings which i will use in the SpriteManager class as an easy lookup using the string
     //Unfortunately i dont know of a better way of doing this in c++ well and Im lazy so i will just do this for now
     textureList.push_back("player.png");
+    textureList.push_back("wall.png");
 
     loadTexures(textureList, textures);
 
@@ -84,7 +85,9 @@ void render(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window,
             }
         }
     }
-
+    Entity_t wall_e("wall.png",2,2);
+    wall_e.spriteManager.getSprite().setPosition(wall_e.x,wall_e.y);
+    window.draw(wall_e.spriteManager.getSprite());
     window.draw(sprite);
 
     // Draw Debug Info to the Console

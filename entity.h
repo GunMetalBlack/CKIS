@@ -7,7 +7,11 @@ class Entity_t
 public:
     // Player inserted into map
     char mapChar;
-
-    Entity_t(std::string& filename, int x, int y);
+    Entity_t(const std::string& filename, int x, int y);
+    SpriteManager spriteManager; // Assuming you made this gonna work
+    int x;
+    int y;
     void debug();
+
+
 };

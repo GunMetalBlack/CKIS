@@ -1,12 +1,6 @@
 #include "entity.h"
 
-Entity_t::Entity_t(std::string &filename, int x, int y) : spriteManager(filename), x(x), y(y)
-{
-
-    SpriteManager spriteManager; // Assuming you made this gonna work
-    int x;
-    int y;
-}
+Entity_t::Entity_t(const std::string &filename, int x, int y) : spriteManager(filename), x(x), y(y){}
 
 void Entity_t::debug()
 {

@@ -4,4 +4,4 @@
 #include <string>
 std::vector<std::string> textureList;
 std::vector<sf::Texture> textures;
-std::vector<Entity_t> entitys_list;
+//std::vector<Entity_t> entitys_list;

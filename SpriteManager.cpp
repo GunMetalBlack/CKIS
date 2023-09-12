@@ -1,7 +1,7 @@
 #include "SpriteManager.h"
 #include "globals.h"
 // Constructor to load the texture and initialize the sprite
-SpriteManager::SpriteManager(std::string &filename)
+SpriteManager::SpriteManager(const std::string &filename)
 {
     int index = -1;
     for (int i = 0; i < textureList.size(); i++)
@@ -12,10 +12,12 @@ SpriteManager::SpriteManager(std::string &filename)
             break;     // Exit the loop since we found the string
         }
     }
+    // if we found something in the texture list do the shit
     if (index != -1)
     {
         std::cout << "String '" << filename << "' found at index " << index << std::endl;
         sprite.setTexture(textures[index]);
+        sprite.setScale(3.0f, 3.0f);
     }
     else
     {
