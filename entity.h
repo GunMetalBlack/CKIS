@@ -5,8 +5,8 @@ class Entity_t
 {
 public:
     // Player inserted into map
-    sf::Sprite sprite;
     char mapChar;
+
     Entity_t(char mapChar);
     void debug();
 };

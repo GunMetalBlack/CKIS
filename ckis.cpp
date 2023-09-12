@@ -11,7 +11,6 @@ void playGame()
 
     textureList.push_back("player.png");
 
-  
     loadTexures(textureList, textures);
 
     // // its in the name
@@ -79,13 +78,11 @@ void render(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window,
             {
                 sf::Vector2f spritePosition((screen_space_x + screen_space_offset) * cellSize, screen_space_y * cellSize);
                 sprite.setPosition(spritePosition);
-
             }
         }
     }
 
     window.draw(sprite);
-    map[MyPlayer.y][MyPlayer.x] = 'P';
 
     // Draw Debug Info to the Console
     cout << "Player X:" << MyPlayer.x << endl;
@@ -108,9 +105,18 @@ void engine(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window,
             }
             if (event.type == sf::Event::KeyPressed)
             {
-                //TODO: DO NOT LEAVE THIS IN PRODUCTION YOU FOOL
-                std::system("echo hello > mapOutput.txt");
-                //REMOVE THIS
+                // TODO: DO NOT LEAVE THIS IN PRODUCTION YOU FOOL
+                std::ofstream debugMapStream("debugMap");
+                for (int i = 0; i < 640; i++)
+                {
+                    for (int j = 0; j < 360; j++)
+                    {
+                        debugMapStream << " ";
+                        debugMapStream << map[i][j];
+                    }
+                    debugMapStream << endl;
+                }
+                // REMOVE THIS
                 switch (event.key.code)
                 {
                 case sf::Keyboard::Escape:

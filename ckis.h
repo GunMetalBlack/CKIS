@@ -3,6 +3,7 @@
 #include <vector>
 #include "deps/SFML-2.6.0-linux-gcc-64-bit/SFML-2.6.0/include/SFML/Graphics.hpp"
 #include "entity.h"
+#include <fstream>
 struct player_t
 {
     int x = 5;
