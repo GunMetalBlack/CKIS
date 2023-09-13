@@ -1,5 +1,4 @@
 #include "SpriteManager.h"
-#include "globals.h"
 // Constructor to load the texture and initialize the sprite
 SpriteManager::SpriteManager(const std::string &filename)
 {

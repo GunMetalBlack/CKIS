@@ -1,7 +1,8 @@
 #include "ckis.h"
 #include "globals.h"
 using namespace std;
-
+std::vector<std::string> textureList;
+std::vector<sf::Texture> textures;
 void playGame()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "CKIS");
