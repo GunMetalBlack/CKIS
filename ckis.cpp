@@ -3,6 +3,7 @@
 using namespace std;
 std::vector<std::string> textureList;
 std::vector<sf::Texture> textures;
+std::vector<Entity_t> entitys_list;
 void playGame()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "CKIS");
@@ -10,9 +11,9 @@ void playGame()
     initFillMap(map);
     player_t MyPlayer;
 
-    //TODO: For the love of god I hate to do this to yah jim but here we go
-    //Im going to preload the textures and store them in a vector of strings which i will use in the SpriteManager class as an easy lookup using the string
-    //Unfortunately i dont know of a better way of doing this in c++ well and Im lazy so i will just do this for now
+    // TODO: For the love of god I hate to do this to yah jim but here we go
+    // Im going to preload the textures and store them in a vector of strings which i will use in the SpriteManager class as an easy lookup using the string
+    // Unfortunately i dont know of a better way of doing this in c++ well and Im lazy so i will just do this for now
     textureList.push_back("player.png");
     textureList.push_back("wall.png");
 
@@ -44,11 +45,32 @@ void initFillMap(char (&map)[640][360])
         {
             if (i >= 10)
             {
-                map[i][j] = '+';
+                map[i][j] = 'w';
             }
             else
             {
                 map[i][j] = '.';
+            }
+        }
+    }
+    // Alright this is going to be dumb but here we go this is the entity init loop
+    for (int i = 0; i < 640; i++)
+    {
+        for (int j = 0; j < 360; j++)
+        {
+            //*If the map is of type 'w' which is wall then we create a WALL entity with the x , y pos in the map
+            std::string textureID;
+            if (map[i][j] == 'w')
+            {
+                textureID = "wall.png";
+            }
+            if (textureID != "")
+            {
+                entitys_list.push_back(Entity_t(textureID, i, j));
+            }
+            else
+            {
+                cout << "Entity Init Failed in InitFillMap!!!" << endl;
             }
         }
     }
@@ -86,16 +108,13 @@ void render(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window,
             }
         }
     }
-    Entity_t wall_e("wall.png",2,2);
-    wall_e.spriteManager.getSprite().setPosition(wall_e.x,wall_e.y);
-    window.draw(wall_e.spriteManager.getSprite());
+
+   // window.draw(entitys_list[0].spriteManager.getSprite());
     window.draw(sprite);
 
     // Draw Debug Info to the Console
     cout << "Player X:" << MyPlayer.x << endl;
     cout << "Player Y:" << MyPlayer.y << endl;
-    //Entity_t fuck('3');
-    //fuck.debug();
 }
 
 void engine(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window, std::vector<std::string> &textureList, std::vector<sf::Texture> &textures)
