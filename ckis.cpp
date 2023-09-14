@@ -47,7 +47,7 @@ void initFillMap(char (&map)[640][360])
     {
         for (int j = 0; j < 360; j++)
         {
-            if (i >= 10)
+            if (i >= 2)
             {
                 map[i][j] = '.';
             }
@@ -79,7 +79,7 @@ void initFillMap(char (&map)[640][360])
             }
             else if (textureID != "")
             {
-                entitys_list.push_back(Entity_t(textureID, i, j));
+                entitys_list.push_back(Entity_t(textureID, j, i));
             }
             else
             {
@@ -114,20 +114,28 @@ void render(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window,
 
             // Lookup Char from World
             char char_from_map = map[world_space_x][world_space_y];
+            sf::Vector2f spritePosition((screen_space_x + screen_space_offset) * cellSize, screen_space_y * cellSize);
             if (i == 0 && j == 0)
             {
-                sf::Vector2f spritePosition((screen_space_x + screen_space_offset) * cellSize, screen_space_y * cellSize);
                 sprite.setPosition(spritePosition);
+            }
+            for (size_t x = 0; x < entitys_list.size(); ++x)
+            {
+                Entity_t &entity = entitys_list[x]; // Get a reference to the current entity
+                // SO if the entity in an instance is in this [position] of the map draw and pray
+                if (entity.x == world_space_x && entity.y == world_space_y)
+                {
+                    entity.spriteManager.getSprite().setPosition(spritePosition);
+                    window.draw(entity.spriteManager.getSprite());
+                }
             }
         }
     }
-
-    // window.draw(entitys_list[0].spriteManager.getSprite());
     window.draw(sprite);
-
     // Draw Debug Info to the Console
     cout << "Player X:" << MyPlayer.x << endl;
     cout << "Player Y:" << MyPlayer.y << endl;
+    cout << "Wall Y:" << MyPlayer.y << endl;
 }
 
 void engine(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window, std::vector<std::string> &textureList, std::vector<sf::Texture> &textures)
