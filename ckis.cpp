@@ -8,7 +8,6 @@ void playGame()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "CKIS");
     char map[640][360];
-    initFillMap(map);
     player_t MyPlayer;
 
     // TODO: For the love of god I hate to do this to yah jim but here we go
@@ -21,6 +20,7 @@ void playGame()
 
     // // its in the name
     // initFillMap(map);
+    initFillMap(map);
     // main player function and input function
     engine(map, MyPlayer, window, textureList, textures);
 }
@@ -34,6 +34,10 @@ void loadTexures(std::vector<std::string> &texturesToLoad, std::vector<sf::Textu
         if (!texture.loadFromFile(*it))
             std::cout << "FAILED TO LOAD TEXTURE VERY BAD" << std::endl;
         loadedTextures.push_back(texture);
+    }
+    for (const std::string &str : textureList)
+    {
+        std::cout << str << " TEXTURE" << std::endl;
     }
 }
 
@@ -73,7 +77,7 @@ void initFillMap(char (&map)[640][360])
             {
                 continue;
             }
-            else if (textureID == "")
+            else if (textureID != "")
             {
                 entitys_list.push_back(Entity_t(textureID, i, j));
             }

@@ -17,6 +17,7 @@ SpriteManager::SpriteManager(const std::string &filename)
         std::cout << "String '" << filename << "' found at index " << index << std::endl;
         sprite.setTexture(textures[index]);
         sprite.setScale(3.0f, 3.0f);
+        std::cout << "Texture loaded" << std::endl;
     }
     else
     {
