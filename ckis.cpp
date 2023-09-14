@@ -45,11 +45,11 @@ void initFillMap(char (&map)[640][360])
         {
             if (i >= 10)
             {
-                map[i][j] = 'w';
+                map[i][j] = '.';
             }
             else
             {
-                map[i][j] = '.';
+                map[i][j] = 'w';
             }
         }
     }
@@ -64,7 +64,16 @@ void initFillMap(char (&map)[640][360])
             {
                 textureID = "wall.png";
             }
-            if (textureID != "")
+            else if (map[i][j] == '.')
+            {
+                textureID = "empty";
+            }
+            // Now we do checks to push said unique entity into the entitys_list vector
+            if (textureID == "empty")
+            {
+                continue;
+            }
+            else if (textureID == "")
             {
                 entitys_list.push_back(Entity_t(textureID, i, j));
             }
@@ -109,7 +118,7 @@ void render(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window,
         }
     }
 
-   // window.draw(entitys_list[0].spriteManager.getSprite());
+    // window.draw(entitys_list[0].spriteManager.getSprite());
     window.draw(sprite);
 
     // Draw Debug Info to the Console
