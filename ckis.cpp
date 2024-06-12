@@ -92,8 +92,8 @@ void initFillMap(char (&map)[640][360])
 void render(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window, std::vector<std::string> &textureList, std::vector<sf::Texture> &textures)
 {
     const int cellSize = 8;
-    const int RenderDistanceX = 10;
-    const int RenderDistanceY = 10;
+    const int RenderDistanceX = 50;
+    const int RenderDistanceY = 20;
     // Calculate the pixel coordinates for the sprite based on the player's position in the map
 
     // RKIS Map Render Please Don't Touch this trash
