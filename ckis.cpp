@@ -98,9 +98,9 @@ void render(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window,
 
     // RKIS Map Render Please Don't Touch this trash
     // Player inserted into map
-    sf::Sprite sprite;
-    sprite.setTexture(textures[0]);
-    sprite.setScale(3.0f, 3.0f);
+    sf::Sprite playerSprite;
+    playerSprite.setTexture(textures[0]);
+    playerSprite.setScale(3.0f, 3.0f);
     for (int i = -RenderDistanceX; i <= RenderDistanceX; i++)
     {
         for (int j = -RenderDistanceY; j <= RenderDistanceY; j++)
@@ -117,7 +117,7 @@ void render(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window,
             sf::Vector2f spritePosition((screen_space_x + screen_space_offset) * cellSize, screen_space_y * cellSize);
             if (i == 0 && j == 0)
             {
-                sprite.setPosition(spritePosition);
+                playerSprite.setPosition(spritePosition);
             }
             for (size_t x = 0; x < entitys_list.size(); ++x)
             {
@@ -131,7 +131,7 @@ void render(char (&map)[640][360], player_t &MyPlayer, sf::RenderWindow &window,
             }
         }
     }
-    window.draw(sprite);
+    window.draw(playerSprite);
     // Draw Debug Info to the Console
     cout << "Player X:" << MyPlayer.x << endl;
     cout << "Player Y:" << MyPlayer.y << endl;
